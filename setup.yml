@@ -47,7 +47,7 @@
         state: present
       with_items:
         - "{{ ansible_hostname }}"
-        - 127.0.0.1
+        - 127.0.1
         - ::1
         - localhost
 
@@ -65,7 +65,7 @@
         state: absent
       with_items:
         - "{{ ansible_hostname }}"
-        - 127.0.0.1
+        - 127.0.1
         - ::1
         - localhost
 
@@ -104,14 +104,13 @@
     - name: Unzip WordPress
       unarchive:
           src: "/tmp/lastest.zip"
-          dest: "/vagrant/"
+          dest: "/var/www/wordpress"
           remote_src: yes
 
-    - name: Symlink web root to unzipped WordPress
+    - name: Create wp-config.php File
       file:
-        src: "/vagrant/wordpress"
-        dest: "/var/www/wordpress"
-        state: "link"
+        src: "/var/www/wordpress/wp-config-sample.php"
+        dest: "/var/www/wordpress/wp-config.php"
 
     - name: Copy virtual host setup over
       template: src={{ vhostTemplatePath }} dest=/etc/apache2/sites-available/
