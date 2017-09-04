@@ -5,7 +5,7 @@
 VAGRANTFILE_API_VERSION = "2"
 #Vagrantf-box uploaded from ftp.lugons.org
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "debian/jessie64"
+  config.vm.box = "debian/stretch64"
   config.vm.network :private_network, ip: "192.168.50.50"
   config.vm.provision "ansible" do |ansible|
   config.vm.boot_timeout = 300
