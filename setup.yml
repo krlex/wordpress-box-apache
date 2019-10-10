@@ -9,26 +9,26 @@
     - name: Install MySQL client, server and related libraries
       apt: pkg={{ item }} state=latest
       with_items:
-        - mysql-client
-        - mysql-server
+        - mariadb-client
+        - mariadb-server
         - python-mysqldb
 
     - name: Install PHP and its modules
       apt: pkg={{ item }} state=latest
       with_items:
-        - php7.0
-        - php7.0-cli
-        - php7.0-curl
-        - php7.0-gd
-        - php7.0-imagick
-        - php7.0-mysql
-        - php7.0-xmlrpc
+        - php7.3
+        - php7.3-cli
+        - php7.3-curl
+        - php7.3-gd
+        - php7.3-imagick
+        - php7.3-mysql
+        - php7.3-xmlrpc
 
     - name: Install Apache and its modules
       apt: pkg={{ item }} state=latest
       with_items:
         - apache2
-        - libapache2-mod-php7.0
+        - libapache2-mod-php7.3
 
     - name: Activate mod_rewrite
       apache2_module: name=rewrite state=present
@@ -83,8 +83,8 @@
 
     - name: Setup MySQL user for WordPress
       mysql_user:
-        name: "user_wp"
-        password: "wordpress"
+        name: "wordpress"
+        password: "wordpress_db_password"
         host: "localhost"
         priv: "wordpress.*:ALL"
         state: "present"
@@ -107,6 +107,7 @@
           dest: "/var/www/"
           remote_src: yes
 
+
     - name: Create wp-config.php File
       command: cp /var/www/wordpress/wp-config-sample.php /var/www/wordpress/wp-config.php
 
@@ -121,3 +122,23 @@
 
     - name: Ensure Apache is running
       service: name=apache2 state=restarted enabled=yes
+
+    - name: Fetch random salts for WordPress config
+      become: no
+      local_action: command curl https://api.wordpress.org/secret-key/1.1/salt/
+      register: "wp_salt"
+
+    - name: Add wp-config
+      become: yes
+      template: "src=wp-config.php dest=/var/www/{{server_hostname}}/wp-config.php"
+
+    - name: Update WordPress config file
+      become: yes
+      lineinfile:
+        dest: "/var/www/{{server_hostname}}/wp-config.php"
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      with_items:
+        - {'regexp': "define\\('DB_NAME', '(.)+'\\);", 'line': "define('DB_NAME', '{{wp_db_name}}');"}
+        - {'regexp': "define\\('DB_USER', '(.)+'\\);", 'line': "define('DB_USER', '{{wp_db_user}}');"}
+        - {'regexp': "define\\('DB_PASSWORD', '(.)+'\\);", 'line': "define('DB_PASSWORD', '{{wp_db_password}}');"}
