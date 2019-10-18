@@ -1,0 +1,8 @@
+---
+- name: Staring Installation
+  hosts: all
+  roles:
+    - apache2
+    - php
+    - mysql
+    - wordpress
