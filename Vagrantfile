@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "ansible" do |ansible|
   config.vm.boot_timeout = 300
     ansible.verbose = "v"
-    ansible.playbook = "setup.yml"
+    ansible.playbook = "playbook.yml"
     ansible.inventory_path = "vagrant-inventory"
     ansible.host_key_checking = "false"
     ansible.limit = "all"

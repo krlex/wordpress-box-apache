@@ -1,0 +1,55 @@
+---
+
+- name: Update apt cache
+  become: yes
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install Apache2
+  become: yes
+  with_items: "{{ apache2_packages }}"
+  apt:
+    pkg: "{{ item.name }}"
+    state: latest
+
+
+- name: Update Apache confs for WordPress + PHP
+  become: yes
+  template:
+    src: "../templates/default-site.conf.j2"
+    dest: "/etc/apache2/sites-available/default-site.conf"
+    owner: www-data
+    group: www-data
+    mode: 0644
+
+- name: Start apache2
+  become: yes
+  service:
+    name: apache2
+    state: started
+
+- name: Enable site
+  become: yes
+  template:
+    src: /etc/apache2/sites-available/default-site.conf
+    dest: /etc/apache2/sites-enabled/default-site.conf
+    owner: www-data
+    group: www-data
+  notify:
+    - restart apache2
+
+- name: Deactivate default vhost
+  become: yes
+  command: a2dissite 000-default
+
+- name: Activate virtual host
+  become: yes
+  command: a2ensite default-site.conf
+
+- name: Ensure Apache is running
+  become: yes
+  service:
+    name: apache2
+    state: restarted
+    enabled: yes
