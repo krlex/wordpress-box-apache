@@ -6,7 +6,16 @@
     pkg: "{{ item.name }}"
     state: latest
 
-- name: Copy wordpress.conf virtual hosts file
+- name: Copy default-site.conf virtual hosts file
+  become: yes
+  template:
+    src: ../templates/default-site.conf.j2
+    dest: /etc/apache2/sites-available/default-site.conf
+    owner: www-data
+    group: www-data
+    mode: 0644
+
+- name: Copy dir.conf virtual hosts file
   become: yes
   template:
     src: ../templates/default-site.conf.j2
@@ -25,11 +34,26 @@
     group: www-data
     state: link
 
+- name: Copy dir.conf virtual hosts file
+  become: yes
+  template:
+    src: ../templates/dir.conf.j2
+    dest: /etc/apache2/mods-enabled/dir.conf
+    owner: www-data
+    group: www-data
+    mode: 0644
+
 - name: Disable default site
   become: yes
   file:
     path: /etc/apache2/sites-enabled/000-default.conf
     state: absent
+  notify: restart web service
+
+
+- name: Disable default site
+  become: yes
+  command: a2ensite default-site.conf
   notify: restart web service
 
 - name: Enable required Apache modules
