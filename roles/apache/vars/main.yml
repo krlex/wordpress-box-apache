@@ -2,3 +2,4 @@ apache2_packages:
   - name: apache2
   - name: libapache2-mod-php7.3
   - name: python-apt
+  - name: curl
