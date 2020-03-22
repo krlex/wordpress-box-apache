@@ -2,6 +2,7 @@ php_packages:
     - name: php7.3
     - name: php7.3-cli
     - name: php7.3-common
+    - name: php7.3-fpm
     - name: php7.3-readline
     - name: php7.3-mysql
     - name: php7.3-gd
