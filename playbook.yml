@@ -1,0 +1,7 @@
+- hosts: vagrant
+
+  roles:
+    - apache
+    - wordpress
+    - mysql
+    - php
