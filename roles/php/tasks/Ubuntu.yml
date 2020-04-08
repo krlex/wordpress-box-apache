@@ -1,0 +1,16 @@
+---
+
+- name: Install php extensions
+  become: yes
+  with_items: "{{ ubuntu_php_packages }}"
+  package:
+    pkg: "{{ item.name }}"
+    state: present
+
+
+- name: Setup php-cgi
+  become: yes
+  replace:
+    dest: /etc/php/7.2/cgi/php.ini
+    regexp: "(;cgi.fix_pathinfo=1)"
+    replace: "cgi.fix_pathinfo=0"

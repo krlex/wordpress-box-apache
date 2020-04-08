@@ -1,0 +1,60 @@
+---
+- name: Install Apache2
+  become: yes
+  with_items: "{{ debian_apache2_packages }}"
+  package:
+    pkg: "{{ item.name }}"
+    state: latest
+
+- name: Setup default-site.conf in sites-available
+  become: yes
+  template:
+    src: ../templates/debian-default-site.conf.j2
+    dest: /etc/apache2/sites-available/default-site.conf
+    owner: "www-data"
+    group: "www-data"
+    mode: 0644
+
+- name: Enable WordPress site with symbolic link
+  become: yes
+  file:
+    src: /etc/apache2/sites-available/default-site.conf
+    dest: /etc/apache2/sites-enabled/default-site.conf
+    force: yes
+    owner: "www-data"
+    group: "www-data"
+    state: link
+
+- name: Copy dir.conf virtual hosts file
+  become: yes
+  template:
+    src: ../templates/dir.conf.j2
+    dest: /etc/apache2/mods-enabled/dir.conf
+    owner: "www-data"
+    group: "www-data"
+    mode: 0644
+
+- name: Disable default site
+  become: yes
+  file:
+    path: /etc/apache2/sites-enabled/000-default.conf
+    state: absent
+
+- name: Disable default site
+  become: yes
+  command: a2ensite default-site.conf
+
+- name: Apache2 restart
+  become: yes
+  service:
+    name: apache2
+    state: restarted
+
+- name: Enable required Apache modules
+  become: yes
+  apache2_module:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - rewrite
+    - ssl
