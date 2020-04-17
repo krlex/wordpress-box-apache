@@ -14,3 +14,9 @@
     dest: /etc/php/7.2/cgi/php.ini
     regexp: "(;cgi.fix_pathinfo=1)"
     replace: "cgi.fix_pathinfo=0"
+
+- name: Restart Apache2
+  become: yes
+  service:
+    name: apache2
+    state: restarted
