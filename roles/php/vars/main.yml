@@ -23,4 +23,3 @@ ubuntu_php_packages:
     - name: php7.2-curl
     - name: php7.2-json
     - name: php7.2-opcache
-

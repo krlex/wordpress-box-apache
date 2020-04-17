@@ -43,19 +43,30 @@
 
 - name: Delete anonymous MySQL server user for $server_hostname
   become: yes
-  action: mysql_user user="" host="{{ server_hostname }}" state="absent"
+  mysql_user:
+    user: ""
+    host: "{{ server_hostname }}"
+    state: "absent"
 
 - name: Delete anonymous MySQL server user for localhost
   become: yes
-  action: mysql_user user="" state="absent"
+  mysql_user:
+    user: ""
+    state: "absent"
 
 - name: Remove the MySQL test database
   become: yes
-  action: mysql_db db=test state=absent
+  mysql_db:
+    db: test
+    state: absent
 
 - name: Update mysql root password for all root accounts
   become: yes
-  mysql_user: name=root host="{{ server_hostname }}" password="{{ mysql_root_password }}" priv=*.*:ALL,GRANT
+  mysql_user:
+    name: root
+    host: "{{ server_hostname }}"
+    password: "{{ mysql_root_password }}"
+    priv: "*.*:ALL,GRANT"
   with_items:
     - "{{ ansible_hostname }}"
     - 127.0.0.1
