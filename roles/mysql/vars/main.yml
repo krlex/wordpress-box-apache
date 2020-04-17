@@ -6,3 +6,11 @@ debian_mysql_packages:
 ubuntu_mysql_packages:
   - name: mysql-server
   - name: python-mysqldb
+
+centos_mysql_packages:
+  - name: mysql-server
+  - name: python-mysqldb
+
+fedora_mysql_packages:
+  - name: mysql-server
+  - name: python-mysqldb

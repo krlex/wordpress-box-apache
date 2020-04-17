@@ -1,8 +1,12 @@
 ---
 - name: restart apache
   become: yes
-  service: name=apache2 state=restarted
+  service:
+    name: apache2
+    state: restarted
 
 - name: restart php7.3-fpm
   become: yes
-  service: name=php7.3-fpm state=restarted
+  service:
+    name: php7.3-fpm
+    state: restarted

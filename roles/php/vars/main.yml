@@ -23,3 +23,25 @@ ubuntu_php_packages:
     - name: php7.2-curl
     - name: php7.2-json
     - name: php7.2-opcache
+
+centos_php_packages:
+    - name: php7.2
+    - name: php7.2-cli
+    - name: php7.2-common
+    - name: php7.2-cgi
+    - name: php7.2-readline
+    - name: php7.2-mysql
+    - name: php7.2-curl
+    - name: php7.2-json
+    - name: php7.2-opcache
+
+fedora_php_packages:
+    - name: php7.2
+    - name: php7.2-cli
+    - name: php7.2-common
+    - name: php7.2-cgi
+    - name: php7.2-readline
+    - name: php7.2-mysql
+    - name: php7.2-curl
+    - name: php7.2-json
+    - name: php7.2-opcache

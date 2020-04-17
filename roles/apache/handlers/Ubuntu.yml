@@ -21,4 +21,6 @@
 
 - name: restart web service
   become: yes
-  systemd: name=apache2 state=restarted
+  systemd:
+    name: apache2
+    state: restarted
