@@ -10,9 +10,8 @@ ubuntu_apache2_packages:
   - name: python-apt
   - name: curl
 
-fedora_apache2_packages:
-  - name: apache2
-  - name: libapache2-mod-php7.3
+fedora_httpd_packages:
+  - name: httpd
   - name: curl
 
 centos_apache2_packages:

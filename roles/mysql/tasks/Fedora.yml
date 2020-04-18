@@ -1,14 +1,15 @@
 ---
 - name: Install mysql
   become: yes
-  with_items: "{{ fedora_mysql_packages }}"
+  with_items: "{{ fedora_mariadb_packages }}"
   package:
     pkg: "{{ item.name }}"
     state: latest
 
 - name: Start the MySQL service
+  become: yes
   service:
-    name: mysql
+    name: mariadb
     state: started
 
 - name: Set root user password
@@ -16,14 +17,14 @@
   become_user: root
   mysql_user:
     name: root
-    # host: "{{ item }}"
+    host: "{{ item }}"
     password: "{{ mysql_root_password }}"
     priv: "*.*:ALL,GRANT"
-    # with_items:
-    #   - "{{ ansible_hostname }}"
-    #   - 127.0.0.1
-    #   - ::1
-    #   - localhost
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
 
 - name: Copy .my.cnf file with root password credentials
   become: yes
