@@ -1,4 +1,4 @@
-php_packages:
+debian_php_packages:
     - name: php7.3
     - name: php7.3-cli
     - name: php7.3-common
@@ -10,7 +10,39 @@ php_packages:
     - name: php7.3-mbstring
     - name: php7.3-json
     - name: php7.3-opcache
-    - name: php7.3-fpm
+    - name: php7.3-cgi
     - name: php-ssh2
     - name: mcrypt
 
+ubuntu_php_packages:
+    - name: php7.2
+    - name: php7.2-cli
+    - name: php7.2-common
+    - name: php7.2-cgi
+    - name: php7.2-readline
+    - name: php7.2-mysql
+    - name: php7.2-curl
+    - name: php7.2-json
+    - name: php7.2-opcache
+
+centos_php_packages:
+    - name: php
+    - name: php-cli
+    - name: php-common
+    - name: php-mbstring
+    - name: php-gd
+    - name: php-fpm
+    - name: php-mysqlnd
+    - name: php-opcache
+    - name: libmcrypt
+
+fedora_php_packages:
+    - name: php
+    - name: php-cli
+    - name: php-common
+    - name: php-mbstring
+    - name: php-gd
+    - name: php-fpm
+    - name: php-mysqlnd
+    - name: php-opcache
+    - name: mcrypt

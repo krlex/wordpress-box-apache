@@ -1,24 +1,3 @@
 ---
-- name: harden web directories
-  become: yes
-  command: find "{{ wp_document_root }}" -type d -exec chmod 755 {} \;
-# listen: "harden web root"
-
-- name: harden web files
-  become: yes
-  command: find "{{ wp_document_root }}" -type f -exec chmod 644 {} \;
-#  listen: "harden web root"
-
-- name: give permissions to apache user
-  become: yes
-  file:
-    path: "{{ wp_document_root }}"
-    state: directory
-    owner: www-data
-    group: www-data
-    recurse: yes
-#  listen: "harden web root"
-
-- name: restart web service
-  become: yes
-  systemd: name=apache2 state=restarted
+- name: include os specific tasks
+  include_tasks: "{{ ansible_distribution }}.yml"

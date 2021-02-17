@@ -1,5 +1,19 @@
-apache2_packages:
+debian_apache2_packages:
   - name: apache2
   - name: libapache2-mod-php7.3
   - name: python-apt
+  - name: curl
+
+ubuntu_apache2_packages:
+  - name: apache2
+  - name: libapache2-mod-php7.2
+  - name: python-apt
+  - name: curl
+
+fedora_httpd_packages:
+  - name: httpd
+  - name: curl
+
+centos_apache2_packages:
+  - name: httpd
   - name: curl

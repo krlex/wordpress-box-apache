@@ -1,0 +1,24 @@
+---
+- name: Install mysql
+  become: yes
+  with_items: "{{ fedora_mariadb_packages }}"
+  package:
+    pkg: "{{ item.name }}"
+    state: latest
+
+- name: Start the MySQL service
+  become: yes
+  service:
+    name: mariadb
+    state: started
+
+- name: Git clone
+  become: yes
+  git:
+    repo: "https://github.com/krlex/DataBase-scripts/"
+    dest: "/tmp/mariadb/"
+
+- name: Config mariadb
+  become: yes
+  command: "/tmp/mariadb/create-mariadb-ansible.sh {{ wp_db_name }} {{ wp_db_user }} {{ wp_db_password }}"
+
