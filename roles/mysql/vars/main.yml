@@ -2,15 +2,21 @@ debian_mysql_packages:
   - name: mariadb-server
   - name: python3-mysqldb
   - name: python-pymysql
+  - name: git
 
 ubuntu_mysql_packages:
   - name: mysql-server
   - name: python-mysqldb
+  - name: python-pymysql
+  - name: git
 
 centos_mysql_packages:
-  - name: mysql-server
-  - name: python-mysqldb
+  - name: epel-release
+  - name: mariadb-server
+  - name: python3-PyMySQL.noarch
+  - name: git
 
 fedora_mariadb_packages:
   - name: mariadb-server
   - name: python3-PyMySQL.noarch
+  - name: git

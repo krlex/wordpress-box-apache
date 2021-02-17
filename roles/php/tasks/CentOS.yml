@@ -7,10 +7,35 @@
     pkg: "{{ item.name }}"
     state: present
 
-
 - name: Setup php-cgi
   become: yes
   replace:
-    dest: /etc/php/7.3/cgi/php.ini
+    dest: /etc/php.ini
     regexp: "(;cgi.fix_pathinfo=1)"
     replace: "cgi.fix_pathinfo=0"
+
+- name: start firewalld
+  become: yes
+  service:
+    name: firewalld
+    state: started
+
+- name: set http in firewall
+  become: yes
+  firewalld:
+    service: http
+    permanent: yes
+    zone: public
+    state: enabled
+
+- name: set tcp in firewall
+  become: yes
+  firewalld:
+    port: 443/tcp
+    permanent: yes
+    zone: public
+    state: enabled
+
+- name: Reload firewall
+  become: yes
+  command: firewall-cmd --reload

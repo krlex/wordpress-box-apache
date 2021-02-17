@@ -15,6 +15,5 @@ fedora_httpd_packages:
   - name: curl
 
 centos_apache2_packages:
-  - name: apache2
-  - name: libapache2-mod-php7.3
+  - name: httpd
   - name: curl

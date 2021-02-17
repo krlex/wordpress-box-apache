@@ -1,11 +1,25 @@
-Wordpress
+# Wordpress
+===========
 
 
-Wordpress in Vagrant and Ansible
+## Wordpress in Vagrant and Ansible
 
+```
+vagrant up
+```
+and see ipaddress from Vagrantfile
+in this case is `192.168.88.11`
 
-just run 'vagrant up' and enjoy !
+## Warning
+if shows any error just do again provision and it will fix by himself
 
+```
+vagrant provision
+```
 
-to run on direct server command is:
-ansible-playbook -i vagrant-inventory -c local setup.yml
+## Tested
+
+- Debian 10 (Buster)
+- Ubuntu 18.04 (Bionic)
+- Fedora 33
+- CentOS 8
