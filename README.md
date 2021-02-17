@@ -24,5 +24,6 @@ vagrant provision
 - CentOS 8
 
 to run on direct server command is:
-
+```
 ansible-playbook -i inventory/localhost playbook.yml -c local
+```
