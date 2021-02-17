@@ -9,8 +9,8 @@
 - name: Setup default-site.conf in sites-available
   become: yes
   template:
-    src: ../templates/fedora-default-site.conf.j2
-    dest: /etc/httpd/conf.d/{{server_hostname}}.conf
+    src: "../templates/fedora-default-site.conf.j2"
+    dest: "/etc/httpd/conf.d/{{server_hostname}}.conf"
     owner: "apache"
     group: "apache"
     mode: 0644
