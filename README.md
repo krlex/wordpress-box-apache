@@ -1,7 +1,6 @@
 # Wordpress
 ===========
 
-
 ## Wordpress in Vagrant and Ansible
 
 ```
@@ -23,3 +22,7 @@ vagrant provision
 - Ubuntu 18.04 (Bionic)
 - Fedora 33
 - CentOS 8
+
+to run on direct server command is:
+
+ansible-playbook -i inventory/localhost playbook.yml -c local
