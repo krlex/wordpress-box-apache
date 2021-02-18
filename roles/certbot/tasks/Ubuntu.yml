@@ -1,0 +1,28 @@
+---
+- name: Install certbot with the apache plugin
+  become: yes
+  package: >
+    upgrade=yes
+    update_cache=yes
+    cache_valid_time=3600
+
+- name: Install Repository (DEB)
+  become: yes
+  package: name={{item}} state=latest
+  with_items:
+    - software-properties-common
+
+- name: Enable Certbot Repository (DEB)
+  command: add-apt-repository ppa:certbot/certbot
+  become: yes
+
+- name: Update all packages to the latest version
+  become: yes
+  package:
+    upgrade: dist
+
+- name: Install certbot-apache (DEB)
+  become: yes
+  package: name={{item}} state=latest
+  with_items:
+    - python-certbot-apache
