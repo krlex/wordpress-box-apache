@@ -6,7 +6,7 @@ debian_apache2_packages:
 
 ubuntu_apache2_packages:
   - name: apache2
-  - name: libapache2-mod-php7.2
+  - name: libapache2-mod-php7.4
   - name: python-apt
   - name: curl
 

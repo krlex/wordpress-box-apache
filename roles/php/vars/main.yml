@@ -15,15 +15,15 @@ debian_php_packages:
     - name: mcrypt
 
 ubuntu_php_packages:
-    - name: php7.2
-    - name: php7.2-cli
-    - name: php7.2-common
-    - name: php7.2-cgi
-    - name: php7.2-readline
-    - name: php7.2-mysql
-    - name: php7.2-curl
-    - name: php7.2-json
-    - name: php7.2-opcache
+    - name: php7.4
+    - name: php7.4-cli
+    - name: php7.4-common
+    - name: php7.4-cgi
+    - name: php7.4-readline
+    - name: php7.4-mysql
+    - name: php7.4-curl
+    - name: php7.4-json
+    - name: php7.4-opcache
 
 centos_php_packages:
     - name: php
