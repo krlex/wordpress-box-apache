@@ -6,8 +6,8 @@ debian_mysql_packages:
 
 ubuntu_mysql_packages:
   - name: mysql-server
-  - name: python-mysqldb
-  - name: python-pymysql
+  - name: python3-mysqldb
+  - name: python3-pymysql
   - name: git
 
 centos_mysql_packages:
